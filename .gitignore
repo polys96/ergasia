@@ -1,28 +1,55 @@
-# Compiled Object files
-*.slo
-*.lo
-*.o
-*.obj
+#include<iostream>
+#include<fstream>
 
-# Precompiled Headers
-*.gch
-*.pch
+using namespace std;
 
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
 
-# Fortran module files
-*.mod
+int main() {
+    
+    string names[3][5];
+    float tab [7][30];
+    ifstream in;
+    in.open ("studentsD.txt");
+    for (int j=0; j<30; j++){
+        for (int i=0; i<7; i++){
+            in >> tab[i][j];
+        }
+    }
+    in.close();
+    in.open("studentsH.txt");
+    for (int j=0; j<5; j++){
+        for(int i=0; i<3; i++){
+            in >> names[i][j];
+        }
+    }
+    in.close();
+    double mo[5][5];
+    for (int i=0; i<6; i++){
+        for (int j=0; j<5; j++){
+            mo[i][j] = 0;
+        }
+    }
+        for (int j=0; j<5; j++){
+            int tmp = j;
+            for (int k=0; k<6; k++){
+                for (int i=2; i<7; i++){
+                    mo[i-2][j] = mo[i-2][j] + tab[i][tmp];
+                }
+                tmp = tmp + 5;
+            }
+        }
+    cout.precision(3);
+    double tmp=0;
+    for (int j=0; j<5; j++){
+        cout << names[1][j] << " " << names[2][j] << " ";
+        tmp=0;
+        for (int i=0; i<5; i++){
+            mo[i][j] = mo[i][j] / 6 ;
+            tmp = mo[i][j] + tmp;
+            cout << mo[i][j] << " ";
+        }
+        cout << tmp/5 << endl;
+    }
+    return 0;
+}
 
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
-
-# Executables
-*.exe
-*.out
-*.app
