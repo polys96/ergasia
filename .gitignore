@@ -23,7 +23,7 @@ int main() {
         }
     }
     in.close();
-    double mo[5][5];
+    double mo[6][5];
     for (int i=0; i<6; i++){
         for (int j=0; j<5; j++){
             mo[i][j] = 0;
@@ -38,18 +38,38 @@ int main() {
                 tmp = tmp + 5;
             }
         }
-    cout.precision(3);
     double tmp=0;
     for (int j=0; j<5; j++){
-        cout << names[1][j] << " " << names[2][j] << " ";
         tmp=0;
         for (int i=0; i<5; i++){
             mo[i][j] = mo[i][j] / 6 ;
             tmp = mo[i][j] + tmp;
+        }
+        mo[5][j] = tmp/5;
+    }
+    int imin;
+    for (int j=0; j<4; j++){
+        imin = j;
+        for (int i=j+1; i<5; i++){
+            if (mo[5][i] < mo[5][imin]) {
+                imin = i;
+            }
+        }
+        if (imin !=j){
+            for (int i=0; i<6; i++){
+                swap(mo[i][j], mo[i][imin]);
+            }
+            swap (names[1][j], names[1][imin]);
+            swap (names[2][j], names[2][imin]);
+        }
+    }
+    cout.precision(3);
+    for (int j=0; j<5; j++){
+        cout << names[1][j] << " " << names[2][j] << " ";
+        for (int i=0; i<6; i++){
             cout << mo[i][j] << " ";
         }
-        cout << tmp/5 << endl;
+        cout << endl;
     }
     return 0;
 }
-
